@@ -1,10 +1,8 @@
 fileFormatVersion: 2
-guid: e674cb38dc7d99d4b925f37684694d29
-timeCreated: 1518492985
-licenseType: Store
+guid: 6a153e0b17949482b8dc5f75d33fce33
 NativeFormatImporter:
   externalObjects: {}
-  mainObjectFileID: 2100000
+  mainObjectFileID: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
@@ -13,5 +11,5 @@ AssetOrigin:
   productId: 90219
   packageName: Planets of the Solar System 3D
   packageVersion: 2.0
-  assetPath: Assets/Planets of the Solar System 3D/Materials/URP_Saturn_2k.mat
+  assetPath: Assets/Textures/URP_Sun_Smoke.mat
   uploadId: 483801

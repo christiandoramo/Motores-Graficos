@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e674cb38dc7d99d4b925f37684694d29
+guid: 957a2e19e0e14495fbce6467614c3e43
 timeCreated: 1518492985
 licenseType: Store
 NativeFormatImporter:
@@ -13,5 +13,5 @@ AssetOrigin:
   productId: 90219
   packageName: Planets of the Solar System 3D
   packageVersion: 2.0
-  assetPath: Assets/Planets of the Solar System 3D/Materials/URP_Saturn_2k.mat
+  assetPath: Assets/Textures/URP_Jupiter_2k.mat
   uploadId: 483801
