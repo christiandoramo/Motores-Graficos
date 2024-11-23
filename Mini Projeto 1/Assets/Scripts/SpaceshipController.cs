@@ -3,69 +3,57 @@ using TMPro; // Certifique-se de incluir o namespace do TextMeshPro
 
 public class SpaceshipController : MonoBehaviour
 {
-    // Parâmetros de movimento
     public float acceleration = 10f;
     public float maxSpeed = 20f;
     public float boostedSpeed = 60f;
     public float rotationSpeed = 2f;
     public float deceleration = 10f;
-    public float bankAngle = 45f;
-    public float bankSmoothness = 2f;
+    private Vector3 velocity;
     public float verticalSpeed = 5f;
     private float currentSpeed = 0f;
     private float currentMaxSpeed;
 
-    // Referência ao Trail Renderer
-    private TrailRenderer trailRenderer;
-
-    // Referência ao TextMeshProUGUI no Canvas
-    public TextMeshProUGUI speedText;
-
-    private Vector3 velocity;
+    public float bankAngle = 45f;
+    public float bankSmoothness = 2f;
     private float targetBankAngle = 0f;
     private float currentBankAngle = 0f;
 
+    private TrailRenderer trailRenderer;
+    public TextMeshProUGUI speedText;
     private CharacterController controller;
 
-    // Estado do boost
     private bool isBoosting = false;
 
     void Start()
     {
-        // Obtém o CharacterController no GameObject
         controller = GetComponent<CharacterController>();
-        currentMaxSpeed = maxSpeed; // Inicializa a velocidade máxima como a padrão
-
-        // Obtém o Trail Renderer da nave
+        currentMaxSpeed = maxSpeed; // coloca a velocidade atualmaaxima como velocidade maxima (para controlar vel boost de velocidade)
         trailRenderer = GetComponent<TrailRenderer>();
-
-        // Certifica-se de que o rastro começa desativado
         trailRenderer.enabled = false;
     }
 
     void Update()
     {
-        HandleBoostToggle(); // Alterna o estado do boost ao pressionar Shift
-        HandleSpeed();       // Ajusta a velocidade de acordo com o estado atual
-        HandleRotation();    // Controla a rotação com o mouse
-        HandleMovement();    // Controla o movimento com WASD, Q, E
-        HandleBanking();     // Suaviza a rotação lateral
-        UpdateSpeedText();   // Atualiza o texto no Canvas com a velocidade
+        HandleBoostToggle();
+        HandleSpeed(); // velocidade de acordo com o estado atual
+        HandleRotation();
+        HandleMovement();   
+        UpdateSpeedText(); 
+
+        HandleBanking();     // suaviza a rotação lateral
     }
 
     void HandleBoostToggle()
     {
-        // Alterna o estado do boost ao pressionar Shift
         if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.Space))
-        {
+        { //  toggle - ativa/desativa o rastro e boost
             isBoosting = !isBoosting;
-            trailRenderer.enabled = isBoosting; // Ativa/desativa o rastro
+            trailRenderer.enabled = isBoosting; 
         }
     }
 
-    void HandleSpeed()
+    void HandleSpeed() // controla a velocidade baseado no boosting
     {
-        // Ajusta a velocidade máxima com base no estado do boost
         currentMaxSpeed = isBoosting ? boostedSpeed : maxSpeed;
     }
 
@@ -81,11 +69,11 @@ public class SpaceshipController : MonoBehaviour
     {
         float moveX = Input.GetAxis("Horizontal");
         float moveZ = Input.GetAxis("Vertical");
-        float moveY = 0f;
+        float moveY = 0f; // coloca velocidade vertical para descer ou subir
 
-        if (Input.GetKey(KeyCode.E))
+        if (Input.GetKey(KeyCode.E)) // cima
             moveY = verticalSpeed;
-        else if (Input.GetKey(KeyCode.Q))
+        else if (Input.GetKey(KeyCode.Q)) //baixo
             moveY = -verticalSpeed;
 
         Vector3 direction = transform.forward * moveZ + transform.right * moveX + transform.up * moveY;
