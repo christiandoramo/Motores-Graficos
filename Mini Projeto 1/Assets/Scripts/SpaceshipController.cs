@@ -1,5 +1,5 @@
 using UnityEngine;
-using TMPro; // Certifique-se de incluir o namespace do TextMeshPro
+using TMPro;
 
 public class SpaceshipController : MonoBehaviour
 {
