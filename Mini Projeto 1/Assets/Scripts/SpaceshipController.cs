@@ -67,9 +67,17 @@ public class SpaceshipController : MonoBehaviour
 
     void HandleMovement()
     {
-        float moveX = Input.GetAxis("Horizontal");
-        float moveZ = Input.GetAxis("Vertical");
+        float moveX;
+        float moveZ;
         float moveY = 0f; // coloca velocidade vertical para descer ou subir
+
+        if(!transform.CompareTag("Player")){
+            moveX = Input.GetAxis("Horizontal");
+            moveZ = Input.GetAxis("Vertical");
+        }else{
+            moveX = Input.GetAxis("ArrowHorizontal");
+            moveZ = Input.GetAxis("ArrowVertical");
+        }
 
         if (Input.GetKey(KeyCode.E)) // cima
             moveY = verticalSpeed;
