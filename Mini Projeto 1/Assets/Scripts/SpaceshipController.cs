@@ -79,9 +79,9 @@ public class SpaceshipController : MonoBehaviour
             moveZ = Input.GetAxis("ArrowVertical");
         }
 
-        if (Input.GetKey(KeyCode.E)) // cima
+        if (Input.GetKey(KeyCode.Q)) // cima
             moveY = verticalSpeed;
-        else if (Input.GetKey(KeyCode.Q)) //baixo
+        else if (Input.GetKey(KeyCode.E)) //baixo
             moveY = -verticalSpeed;
 
         Vector3 direction = transform.forward * moveZ + transform.right * moveX + transform.up * moveY;

@@ -1,18 +1,19 @@
-# Miniprojeto 1
+# Miniprojeto 2
 
 <div  align="center">
 
-![objetivo](image.png)
+![conceitos](image-2.png)
+![especificação](image-1.png)
 
 Motores Gráficos
 2024.2
-Miniprojeto 1
+Mini projeto 2
 Aluno: Christian Oliveira
 
 </div>
 
 <div  align="left">
-
+<!-- 
 ### Sumário
 
 :o: [Contribuidores](#contribuidores)
@@ -25,15 +26,15 @@ Aluno: Christian Oliveira
 
 :o: [Dicas de acesso](#dicas-de-acesso-arrow_forward)
 
-:o: [Anotações](#anotações)
+:o: [Anotações](#anotações) -->
 
-## Contribuidores
+<!-- ## Contribuidores
 
 | [<img src="https://avatars.githubusercontent.com/u/116025325?v=4" width=115>](https://github.com/christiandoramo) |
 | ----------------------------------------------------------------------------------------------------------------- |
 | [Christian Oliveira](https://github.com/christiandoramo)                                                          |
 
-<br>
+<br> -->
 
 ## Tecnologias
 
@@ -41,7 +42,7 @@ Aluno: Christian Oliveira
 
 <br>
 
-## Especificações
+<!-- ## Especificações
 
 ### Requisitos
 
@@ -100,6 +101,6 @@ Aluno: Christian Oliveira
 
 :o: [Dicas de acesso](#dicas-de-acesso-arrow_forward)
 
-:o: [Anotações](#anotações)
+:o: [Anotações](#anotações) -->
 
 </div>

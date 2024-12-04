@@ -9,16 +9,14 @@ public class PlanetMovement : MonoBehaviour
     public int rotationDirection;          // (1 ou -1) horário ou anti-horário
     public Transform sun = null;
 
-
-    // Sugestão do Doutor gepeto simular orbita real
     public float variationSpeed = 1.0f;    // aceleração que muda ao longo do tempo para simular mundo real...
     public float xAmplitude = 1.5f;        // range de variação no X
     public float yAmplitude = 1.7f;        // range da variação no Y
     public float zAmplitude = 1.3f;        // range da variação no Z
-    private float orbitAngle = 0f;         // Ângulo atual da órbita
-    public float orbitDistance;            // Distância da órbita em relação ao Sol
-    public float orbitEccentricity = 1.5f; // Excentricidade da elipse (alongamento horizontal)
-    public float verticalOffset = 0.5f;    // Offset vertical para a inclinação em 3D
+    private float orbitAngle = 0f;        
+    public float orbitDistance;        
+    public float orbitEccentricity = 1.5f; // excentricidade da elipse- tentativa de elipse com variação ao longo da orbita
+    public float verticalOffset = 0.5f;
 
     void Start()
     {

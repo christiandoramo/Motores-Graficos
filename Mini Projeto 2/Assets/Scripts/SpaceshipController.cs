@@ -105,7 +105,15 @@ public class SpaceshipController : MonoBehaviour
 
     void HandleBanking()
     {
-        float moveX = Input.GetAxis("Horizontal");
+        float moveX;
+        if (transform.CompareTag("Player"))
+        {
+            moveX = Input.GetAxis("Horizontal");
+        }
+        else
+        {
+            moveX = Input.GetAxis("ArrowHorizontal");
+        }
         targetBankAngle = -moveX * bankAngle;
         currentBankAngle = Mathf.Lerp(currentBankAngle, targetBankAngle, Time.deltaTime * bankSmoothness);
         transform.localRotation = Quaternion.Euler(transform.localEulerAngles.x, transform.localEulerAngles.y, currentBankAngle);
@@ -113,6 +121,6 @@ public class SpaceshipController : MonoBehaviour
 
     void UpdateSpeedText()
     {
-        speedText.text = $"Speed: {currentSpeed:F1} m/s";
+        speedText.text = $"Speed: {velocity} m/s";
     }
 }

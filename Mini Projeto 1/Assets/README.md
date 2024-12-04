@@ -3,6 +3,7 @@
 <div  align="center">
 
 ![objetivo](image.png)
+![alt text](image-1.png)
 
 Motores Gráficos
 2024.2
