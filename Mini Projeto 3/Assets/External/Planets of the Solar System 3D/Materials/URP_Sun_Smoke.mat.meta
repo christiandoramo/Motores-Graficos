@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 8529a27c696d1fd419ff21266302fcfa
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 90219
+  packageName: Planets of the Solar System 3D
+  packageVersion: 2.0
+  assetPath: Assets/Planets of the Solar System 3D/Materials/URP_Sun_Smoke.mat
+  uploadId: 483801
