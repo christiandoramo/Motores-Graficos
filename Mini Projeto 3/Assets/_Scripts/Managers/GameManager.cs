@@ -9,20 +9,25 @@ public class GameManager : MonoBehaviour
     /// </summary>
     void Start()
     {
+        if (cameraManager != null) cameraManager = Instantiate(cameraManager);
+        else Destroy(cameraManager);
+
         cameraManager.camera1 = Camera.main; // camera que tem tag Main
         //cameraManager.camera2 = FindSecondaryCamera(); // camera secundaria - Untagged
-        cameraManager.spaceshipTransform1 = cameraManager.camera1.GetComponentInParent<Transform>();// o pai é o player 1
         //cameraManager.spaceshipTransform2 = cameraManager.camera2.GetComponentInParent<Transform>(); // o pai é o player 2
 
-        spaceshipController1 = cameraManager.camera1.GetComponentInParent<SpaceshipController>();
         //spaceshipController2 = cameraManager.camera2.GetComponentInParent<SpaceshipController>();
 
 
-        cameraManager.spaceship1 = GameObject.Find("Spaceship1");
-       // cameraManager.spaceship2 = GameObject.Find("Spaceship2");
+        cameraManager.spaceship1 = GameObject.Find("Environment/Player");
 
-        cameraManager.spaceBody1 = GameObject.Find("Spaceship1/Sphere").transform;
-       // cameraManager.spaceBody2 = GameObject.Find("Spaceship2/Sphere").transform;
+        // cameraManager.spaceship2 = GameObject.Find("Spaceship2");
+
+        cameraManager.spaceBody1 = GameObject.Find("Environment/Player/ShipBody").transform;
+        cameraManager.spaceshipTransform1 = cameraManager.spaceBody1.transform;// o pai é o player 1
+        spaceshipController1 = cameraManager.spaceship1.GetComponentInParent<SpaceshipController>();
+
+        // cameraManager.spaceBody2 = GameObject.Find("Spaceship2/Sphere").transform;
 
         //cameraManager.currentSpeed1 = spaceshipController1.currentSpeed;
         cameraManager.maxSpeed1 = spaceshipController1.boostedSpeed;
@@ -36,6 +41,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (cameraManager == null) return;
         cameraManager.currentSpeed1 = cameraManager.spaceship1.GetComponent<SpaceshipController>().currentSpeed;
         //cameraManager.currentSpeed2 = cameraManager.spaceship2.GetComponent<SpaceshipController>().currentSpeed;
         cameraManager.UpdateCamera();

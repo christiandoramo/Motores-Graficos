@@ -31,6 +31,7 @@ namespace DigitalRuby.Earth
         private MeshRenderer meshRenderer;
         private MaterialPropertyBlock materialBlock;
 
+        [System.Obsolete]
         private void OnEnable()
         {
             meshRenderer = GetComponent<MeshRenderer>();

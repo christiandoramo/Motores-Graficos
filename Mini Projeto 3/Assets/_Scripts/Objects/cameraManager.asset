@@ -13,4 +13,19 @@ MonoBehaviour:
   m_Name: cameraManager
   m_EditorClassIdentifier: 
   camera1: {fileID: 0}
-  camera2: {fileID: 0}
+  spaceshipTransform1: {fileID: 0}
+  spaceship1: {fileID: 0}
+  audioListener1: {fileID: 0}
+  closePosition1: {x: 0, y: 0, z: 0.5}
+  smallFOV1: 30
+  farPosition1: {x: 0, y: 0, z: 3}
+  bigFOV1: 75
+  farPosition2: {x: 0, y: 0, z: 3}
+  bigFOV2: 60
+  spaceBody1: {fileID: 0}
+  spaceBody2: {fileID: 0}
+  maxSpeed1: 0
+  currentSpeed1: 0
+  maxSpeed2: 0
+  currentSpeed2: 0
+  speedThreshold: 10

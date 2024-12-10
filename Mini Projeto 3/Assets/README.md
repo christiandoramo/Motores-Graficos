@@ -20,8 +20,8 @@ Aluno: Christian Oliveira
 -   [x] texturize a lua com algum tipo de mapa de relevo
 -   [x] adicione um skybox à sua cena
 -   [ ] desafio: faça com o seu skybox seja dinâmico
--   [ ] desafio: para ajudar na investigação das partes escuras do sistema solar, crie uma potente lanterna (spot light) na nave que controlável com o mouse ao pressionar e segurar o botão direito do mouse
--   [ ] desafio: use o scroll do mouse para aumentar/diminuir a potência da lanterna e inversamente diminuir/aumentar seu ângulo de abertura
+-   [x] desafio: para ajudar na investigação das partes escuras do sistema solar, crie uma potente lanterna (spot light) na nave que controlável com o mouse ao pressionar e segurar o botão direito do mouse
+-   [x] desafio: use o scroll do mouse para aumentar/diminuir a potência da lanterna e inversamente diminuir/aumentar seu ângulo de abertura
 -   [ ] desafio: crie 10 pontos de resgate espalhados no sistema solar. cada ponto de resgate deve ter uma luz pontual piscando em vermelho. opcionalmente você pode adicionar a cada ponto de resgate algum sólido ou modelo 3D. no momento em que a nave entra em contato com o ponto de resgate ele some e um contador é incrementado. ao completar 10 resgates o jogo termina.
 
 ### Faltando:

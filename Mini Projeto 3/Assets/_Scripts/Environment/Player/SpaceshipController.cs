@@ -27,6 +27,7 @@ public class SpaceshipController : MonoBehaviour
     private CharacterController controller;
 
     private bool isBoosting = false;
+    private bool flashlightOn;
     public Camera cam;
     void Start()
     {
@@ -45,12 +46,49 @@ public class SpaceshipController : MonoBehaviour
         HandleRotation();
         HandleMovement();
         UpdateSpeedText();
-
+        HandleToggleLight();
+        HandleLightIntensity();
         HandleBanking();     // suaviza a rotação lateral
 
-        if (Input.GetKeyDown(KeyCode.F))
+
+    }
+    void HandleToggleLight()
+    {
+        if (Input.GetButtonDown("Fire2") && !flashlightOn)
         {
-            flashlight.enabled = !flashlight.enabled;
+            flashlightOn = true; // Alterna o estado da lanterna.
+            flashlight.enabled = true;
+            flashlight.intensity = .5f;
+            flashlight.spotAngle = 10f;
+        }
+        else if (Input.GetButtonDown("Fire2") && flashlightOn)
+        {
+            flashlightOn = false;
+            flashlight.enabled = false;
+        }
+    }
+
+    //void HandleLight()
+    //{
+    //    // Aumenta ou diminui a intensidade conforme o estado.
+    //    if (Input.GetButton("Fire1") && flashlight.intensity < 5f)
+    //    {
+    //        flashlight.intensity = Mathf.Clamp(flashlight.intensity + 1.25f * Time.deltaTime, 0f, 5f);
+    //    }
+    //    else if (flashlight.intensity > 0)
+    //    {
+    //        flashlight.intensity = Mathf.Clamp(flashlight.intensity - 2.5f * Time.deltaTime, 0f, 5f);
+    //    }
+    //}
+    void HandleLightIntensity()
+    {
+        if (!flashlightOn) return; // Só modifica se a lanterna estiver ligada.
+        // Ajustar intensidade e ângulo com scroll do mouse.
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+        if (Mathf.Abs(scroll) != 0f)
+        {
+            flashlight.intensity = Mathf.Clamp(flashlight.intensity + scroll * 1f, 1f, 5f);
+            flashlight.spotAngle = Mathf.Clamp(flashlight.spotAngle + scroll * 10f, 10f, 50f);
         }
     }
 
