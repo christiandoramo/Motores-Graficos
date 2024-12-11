@@ -19,40 +19,10 @@ Aluno: Christian Oliveira
 -   [x] texturize a terra com algum tipo de mapa de relevo (heightmap, normalmap…)
 -   [x] texturize a lua com algum tipo de mapa de relevo
 -   [x] adicione um skybox à sua cena
--   [ ] desafio: faça com o seu skybox seja dinâmico
+-   [x] desafio: faça com o seu skybox seja dinâmico
 -   [x] desafio: para ajudar na investigação das partes escuras do sistema solar, crie uma potente lanterna (spot light) na nave que controlável com o mouse ao pressionar e segurar o botão direito do mouse
 -   [x] desafio: use o scroll do mouse para aumentar/diminuir a potência da lanterna e inversamente diminuir/aumentar seu ângulo de abertura
--   [ ] desafio: crie 10 pontos de resgate espalhados no sistema solar. cada ponto de resgate deve ter uma luz pontual piscando em vermelho. opcionalmente você pode adicionar a cada ponto de resgate algum sólido ou modelo 3D. no momento em que a nave entra em contato com o ponto de resgate ele some e um contador é incrementado. ao completar 10 resgates o jogo termina.
-
-### Faltando:
-
-Aqui está a lista com as tarefas não marcadas detalhadas:
-
-**Texturize a Terra com algum tipo de mapa de relevo (heightmap, normalmap...)**  
--   [ ] Use um *heightmap* para criar a sensação de topografia na superfície da Terra, como montanhas e vales. Combine com um *normalmap* para adicionar detalhes à textura, como relevos menores e mais precisos. Isso pode ser feito ajustando materiais na engine, como no Unity ou Unreal, para incorporar esses mapas ao *shader* da superfície.
-
-**Texturize a Lua com algum tipo de mapa de relevo**  
--   [ ] Aplique um *heightmap* ou *normalmap* para destacar as crateras e formações rochosas da Lua. Recursos como mapas de *displacement* também podem ser utilizados para deformar levemente a superfície do modelo 3D, aumentando a imersão.
-
-**Desafio: Faça com que o seu skybox seja dinâmico**  
--   [ ] Crie um *skybox* que muda ao longo do tempo para simular ciclos, como dia e noite, ou variações no espaço, como nebulosas que se deslocam. Use animações ou scripts para alterar dinamicamente as texturas ou cores do *skybox*.
-
-**Desafio: Crie uma potente lanterna (spot light) na nave controlável com o mouse**  
--   [ ] Adicione uma *spot light* à nave e implemente controles para que ela siga a direção do mouse enquanto o botão direito estiver pressionado. Configure a luz para ter um feixe intenso e bem definido, útil para iluminar áreas escuras.
-
-**Desafio: Use o scroll do mouse para ajustar a potência e o ângulo de abertura da lanterna**  
-    Vincule o *scroll* do mouse ao controle da luz:  
--   [ ] Rolando para frente aumenta a potência e diminui o ângulo do feixe, tornando-o mais focado.  
--   [ ] Rolando para trás diminui a potência e aumenta o ângulo, espalhando a luz por uma área maior.  
-
-- **Desafio: Crie 10 pontos de resgate no sistema solar**  
-    Cada ponto de resgate deve conter:  
--   [ ] Uma luz pontual piscando em vermelho, simulando um sinal de emergência.  
--   [ ] Um modelo ou objeto 3D simples, como uma cápsula ou um marcador de resgate.  
-  - Funcionalidade:  
--   [ ] Quando a nave entra em contato com um ponto, ele desaparece e um contador é incrementado.  
--   [ ] Após coletar os 10 pontos, exiba uma mensagem de conclusão ou termine o jogo.  
-  - Dica: Use colisores com eventos (como *OnTriggerEnter* no Unity) para detectar a interação.
+-   [x] desafio: crie 10 pontos de resgate espalhados no sistema solar. cada ponto de resgate deve ter uma luz pontual piscando em vermelho. opcionalmente você pode adicionar a cada ponto de resgate algum sólido ou modelo 3D. no momento em que a nave entra em contato com o ponto de resgate ele some e um contador é incrementado. ao completar 10 resgates o jogo termina.
 
 <!-- 
 ### Sumário
