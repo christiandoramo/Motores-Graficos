@@ -13,22 +13,22 @@ public class GameManager : MonoBehaviour
     public int totalToRescue = 0;
 
     public static GameManager instance;
-    void Start()
-    {
-        if (instance == null)
-        {
-            instance = this; // definindo a instancia do objeto como estática para ser acessado como um
-                             // singleton em outros arquivos
-        }
-        totalToRescue = GameObject.FindGameObjectsWithTag("CelestialBody").Length;
-    }
-    void Update()
-    {
-        if (rescueTargetSafe >= totalToRescue)
-        {
-            EndGame();
-        }
-    }
+    //void Start()
+    //{
+    //    if (instance == null)
+    //    {
+    //        instance = this; // definindo a instancia do objeto como estática para ser acessado como um
+    //                         // singleton em outros arquivos
+    //    }
+    //    totalToRescue = GameObject.FindGameObjectsWithTag("CelestialBody").Length;
+    //}
+    //void Update()
+    //{
+    //    if (rescueTargetSafe >= totalToRescue)
+    //    {
+    //        EndGame();
+    //    }
+    //}
 
     public void MoreOneTargetSafe()
     {
