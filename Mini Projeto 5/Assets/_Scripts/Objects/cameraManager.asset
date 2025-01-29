@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bd116a057d1f974b920d2cb6cebe6fb, type: 3}
+  m_Name: cameraManager
+  m_EditorClassIdentifier: 
+  camera1: {fileID: 0}
+  spaceshipTransform1: {fileID: 0}
+  spaceship1: {fileID: 0}
+  audioListener1: {fileID: 0}
+  closePosition1: {x: 0, y: 0, z: 0.5}
+  smallFOV1: 30
+  farPosition1: {x: 0, y: 0, z: 3}
+  bigFOV1: 75
+  farPosition2: {x: 0, y: 0, z: 3}
+  bigFOV2: 60
+  spaceBody1: {fileID: 0}
+  spaceBody2: {fileID: 0}
+  maxSpeed1: 0
+  currentSpeed1: 0
+  maxSpeed2: 0
+  currentSpeed2: 0
+  speedThreshold: 10
