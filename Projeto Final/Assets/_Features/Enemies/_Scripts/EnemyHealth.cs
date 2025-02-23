@@ -32,7 +32,7 @@ public class EnemyHealth : MonoBehaviour
         Debug.Log("Inimigo esta morrendo");
         em.isDying = true;
         em.animator.SetBool("IsDying", em.isDying);
-        GetComponent<CircleCollider2D>().enabled = false;
+        GetComponent<BoxCollider>().enabled = false;
     }
 
     public void Die()
@@ -40,6 +40,6 @@ public class EnemyHealth : MonoBehaviour
         if (isDead || this == null) return;
         Debug.Log("Inimigo " + name + " morreu");
         isDead = true;
-        Destroy(gameObject);
+        Destroy(this.gameObject);
     }
 }

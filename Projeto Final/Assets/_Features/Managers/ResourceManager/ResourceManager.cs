@@ -11,7 +11,7 @@ public class ResourceManager : MonoBehaviour
     private Dictionary<int, Gatherable> gatherablesInPavillion = new Dictionary<int, Gatherable>();
 
     public int wood, oil, water, totalWood, totalOil, totalWater, load;
-    private const int maxLoad = 5;
+    public int maxLoad = 10;
     public bool AutoDriveActivated;
 
     void LateUpdate()

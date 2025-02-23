@@ -12,6 +12,8 @@ TagManager:
   - ShipWheel
   - CarCamera
   - Enemy
+  - SafePoint
+  - SafePointUI
   layers:
   - Default
   - TransparentFX

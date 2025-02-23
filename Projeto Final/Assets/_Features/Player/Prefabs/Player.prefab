@@ -419,8 +419,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackPrefab: {fileID: 5106061031154382049, guid: 1cdb4dede041f2a4fa07105272cd4dca, type: 3}
-  hitBoxSize: {x: 3, y: 3, z: 3}
-  attackOriginPoint: {fileID: 3926783015827647086, guid: 1cdb4dede041f2a4fa07105272cd4dca, type: 3}
+  attackOriginPoint: {fileID: 2701874739064673909}
   coolDownTimer: 0
   torchCooldown: 3
   layerAttackMask:

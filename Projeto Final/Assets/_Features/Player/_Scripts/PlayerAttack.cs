@@ -4,7 +4,6 @@ public class PlayerAttack : MonoBehaviour
 {
 
     [SerializeField] public GameObject attackPrefab;
-    public Vector3 hitBoxSize = new(3, 3, 3);
 
     [Header("References")]
     [SerializeField] private Transform attackOriginPoint;
@@ -12,7 +11,7 @@ public class PlayerAttack : MonoBehaviour
 
     [SerializeField] private float coolDownTimer;
     [SerializeField] float torchCooldown;
-        [SerializeField]
+    [SerializeField]
     LayerMask layerAttackMask;
 
 
@@ -37,19 +36,11 @@ public class PlayerAttack : MonoBehaviour
 
         if (coolDownTimer < torchCooldown) return;
 
-        Vector3 direction = attackOriginPoint.forward;
-        Vector3 attackArea = hitBoxSize;
-
         GameObject attackObj = Instantiate(attackPrefab, attackOriginPoint.position, Quaternion.identity);
-        attackObj.GetComponent<TorchAttack>().Execute(direction, attackArea, layerAttackMask, Vector3.zero);
+        TorchAttack attack = attackObj.GetComponent<TorchAttack>();
+        attack.Execute(attackObj.transform.position, layerAttackMask, Vector3.zero);
+
 
         coolDownTimer = 0f; // Reiniciar o cooldown
-        Debug.Log("Player atacou");
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(transform.position, hitBoxSize);
     }
 }

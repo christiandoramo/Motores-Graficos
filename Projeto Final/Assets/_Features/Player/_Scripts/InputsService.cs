@@ -26,7 +26,6 @@ public class InputsService : MonoBehaviour
     private PlayerCollect playerCollect;
     private ShipWheel shipWheel;
     private PlayerAttack playerAttack;
-    private CarMovement carMovement;
 
     void Start()
     {
@@ -34,15 +33,23 @@ public class InputsService : MonoBehaviour
         playerGather = GetComponent<PlayerGather>();
         playerCollect = GetComponent<PlayerCollect>();
         playerAttack = GetComponent<PlayerAttack>();
-        carMovement = GameObject.FindWithTag("Wagon").GetComponent<CarMovement>();
         shipWheel = GameObject.FindWithTag("ShipWheel").GetComponent<ShipWheel>();
     }
     void Update()
     {
         if (!isActivated) return;
-        if (GameManager.instance.isDriving) return;
+        if (!GameManager.instance.isDriving)
+        {
+            PlayerCharInputs();
+        }
+        else if (GameManager.instance.isDriving)
+        {
+            CarInputs();
+        }
+    }
 
-
+    private void CarInputs()
+    {
         Vector2 moveDirection = move.action.ReadValue<Vector2>();
         xMove = moveDirection.x;
         zMove = moveDirection.y;
@@ -55,6 +62,19 @@ public class InputsService : MonoBehaviour
         accelerateInput = accelerate.action.ReadValue<float>();
         brakeInput = brake.action.ReadValue<float>();
 
+    }
+    private void PlayerCharInputs()
+    {
+        Vector2 moveDirection = move.action.ReadValue<Vector2>();
+        xMove = moveDirection.x;
+        zMove = moveDirection.y;
+
+
+        Vector2 lookDirection = look.action.ReadValue<Vector2>();
+        mouseInputX = lookDirection.x;
+        mouseInputY = lookDirection.y;
+
+        accelerateInput = accelerate.action.ReadValue<float>();
     }
     private void OnEnable()
     {
@@ -76,7 +96,7 @@ public class InputsService : MonoBehaviour
 
     private void Jump(InputAction.CallbackContext ctx)
     {
-            playerMove.Jump();
+        playerMove.Jump();
     }
 
     private void Gather(InputAction.CallbackContext ctx)

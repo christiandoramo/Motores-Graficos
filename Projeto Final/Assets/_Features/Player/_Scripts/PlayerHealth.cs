@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    [SerializeField] private float startingHealth = 1;
+    public float startingHealth = 100;
 
-    private float currentHealth;
+    public float currentHealth;
 
     //private static int collisionCount = 0; // Contador de colisões
     private void Start()
@@ -16,7 +16,7 @@ public class PlayerHealth : MonoBehaviour
     {
         currentHealth = Mathf.Clamp(currentHealth - damage, 0, startingHealth);
         Debug.Log($"Dano no inimigo ({name}) recebido: {damage}, \nvida atual: {currentHealth}");
-
+        GameManager.instance.hudManager.UpdateHPCount(currentHealth, (int)startingHealth);
         if (currentHealth <= 0)
         {
             //Die();

@@ -21,6 +21,9 @@ public class GameManager : MonoBehaviour
 
     public HUDManager hudManagerOriginal;
 
+    public Camera activeCamera;
+
+
     // [SerializeField] private InputActionReference pauseResumePressed;
 
     void Start()
@@ -30,6 +33,7 @@ public class GameManager : MonoBehaviour
         dayManager = Instantiate(dayManagerOriginal);
         hudManager = Instantiate(hudManagerOriginal);
         dayManager.Initialize();
+        activeCamera = Camera.main;
     }
     void FixedUpdate()
     {

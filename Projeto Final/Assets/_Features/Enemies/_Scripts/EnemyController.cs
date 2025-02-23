@@ -19,7 +19,7 @@ public class EnemyController : MonoBehaviour
     private bool isMoving = true;
     private bool isAttacking = false;
 
-    public Vector3 hitBoxSize = new(3, 3, 3);
+    public Vector3 hitBoxSize = new(2, 2, 2);
     [SerializeField] private float coolDownTimer;
     [SerializeField] float torchCooldown;
     [SerializeField]
@@ -27,16 +27,23 @@ public class EnemyController : MonoBehaviour
 
 
 
-   [Header("References")]
+    [Header("References")]
     [SerializeField] private Transform attackOriginPoint;
     [SerializeField] public GameObject attackPrefab;
 
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").gameObject; // pega o player já na cena
+        animator = GetComponentInChildren<Animator>();
+
     }
     private void Update()
     {
+        if (isDying)
+        {
+            rb.linearVelocity = Vector3.zero;
+            return;
+        }
         coolDownTimer += Time.deltaTime;
         if (coolDownTimer <= torchCooldown && isAttacking == true)
         {
@@ -45,7 +52,7 @@ public class EnemyController : MonoBehaviour
         }
 
         FollowPlayer();
-        if (coolDownTimer >= 60)
+        if (coolDownTimer >= 10)
         {
             rb.linearVelocity = Vector3.zero;
             isAttacking = false;
@@ -66,7 +73,7 @@ public class EnemyController : MonoBehaviour
         if (collider != null)
         {
 
-            TorchAttack();
+            HandsAttack();
 
         }
         else if (isAttacking == false)
@@ -86,7 +93,7 @@ public class EnemyController : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(direction); // Rotacionar na direção do movimento
     }
 
-    private void TorchAttack()
+    private void HandsAttack()
     {
         isMoving = false;
         animator.SetBool("IsMoving", isMoving);
@@ -98,11 +105,10 @@ public class EnemyController : MonoBehaviour
         isAttacking = true;
         if (coolDownTimer < torchCooldown) return;
 
-        Vector3 direction = attackOriginPoint.forward;
-        Vector3 attackArea = hitBoxSize;
-
+        Debug.Log("Inimigo gerou ataque");
         GameObject attackObj = Instantiate(attackPrefab, attackOriginPoint.position, Quaternion.identity);
-        attackObj.GetComponent<HandsAttack>().Execute(direction, attackArea, layerAttackMask, Vector3.zero);
+        HandsAttack attack = attackObj.GetComponent<HandsAttack>();
+        attack.Execute(attackObj.transform.position, layerAttackMask, Vector3.zero);
 
         coolDownTimer = 0f; // Reiniciar o cooldown
     }

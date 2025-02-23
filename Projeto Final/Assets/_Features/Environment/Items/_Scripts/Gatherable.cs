@@ -15,6 +15,7 @@ public class Gatherable : MonoBehaviour
 
     void Update()
     {
+        if (rb == null) return;
         if (rb.linearVelocity.y > 0)
         {
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);

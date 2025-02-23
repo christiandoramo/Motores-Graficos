@@ -26,13 +26,14 @@ public class ShipWheel : MonoBehaviour
     {
         Debug.Log("ToggleDriveMode");
         // caldeiron.load não está sendo usado
-        if (GameManager.instance.rm.load > 0 && GameManager.instance.isDriving == false)
+        if (GameManager.instance.isDriving == false)// && GameManager.instance.rm.load > 0) colocar regra do maxLoad aki
         {
             player.GetComponent<Rigidbody>().isKinematic = true;
-            player.transform.parent = gameObject.transform;
+            player.transform.SetParent(gameObject.transform, true); //testar segundo parammetro com false e com true
             carCamera.gameObject.SetActive(true);
             playerCamera.gameObject.SetActive(false);
             GameManager.instance.isDriving = true;
+            GameManager.instance.activeCamera = carCamera;
         }
         else if (GameManager.instance.isDriving == true)
         {
@@ -40,7 +41,8 @@ public class ShipWheel : MonoBehaviour
             carCamera.gameObject.SetActive(false);
             GameManager.instance.isDriving = false;
             player.GetComponent<Rigidbody>().isKinematic = false;
-            player.transform.parent = null;
+            player.transform.SetParent(null); //testar segundo parammetro com false e com true
+            GameManager.instance.activeCamera = playerCamera;
         }
     }
 

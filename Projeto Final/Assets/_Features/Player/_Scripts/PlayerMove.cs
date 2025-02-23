@@ -1,11 +1,15 @@
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Scripting.APIUpdating;
 
 public class PlayerMove : MonoBehaviour
 {
     [Header("Camera config")][SerializeField] float camLookSpeed;
 
     [Header("Fisica do movimento")]
+    public float sp = 10;
+    public float spMax = 10;
+    private float staminaHasBeenUsedCounter;
     [SerializeField] float moveSpeed = 0.5f;
     [SerializeField] float lookSpeed = .005f;
     [SerializeField] private float upDownRange = 80f;
@@ -32,16 +36,25 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] Transform feetTransform;
     [SerializeField] LayerMask groundMask;
     int jumpsEnabled = 2;
+    private Transform camHolderTransform;
+    void Start()
+    {
+        camHolderTransform = Camera.main.transform.parent;
+    }
 
     void FixedUpdate()
     {
         if (GameManager.instance.isDriving) return;
+        HandleStamina();
+        Move();
 
+    }
+    private void Move()
+    {
         verticalRotation -= inputs.mouseInputY * camLookSpeed * Time.fixedDeltaTime;
         verticalRotation = Mathf.Clamp(verticalRotation, -upDownRange, upDownRange);
 
-        Transform cameraHolder = Camera.main.transform.parent;
-        cameraHolder.localRotation = Quaternion.Euler(verticalRotation, 0, 0);
+        camHolderTransform.localRotation = Quaternion.Euler(verticalRotation, 0, 0);
 
 
         if (isGathering) return;
@@ -54,7 +67,6 @@ public class PlayerMove : MonoBehaviour
         rb.AddForce(pg.weightGatheringMultiplier * inputs.xMove * moveSpeed * rb.transform.TransformDirection(Vector3.right), ForceMode.VelocityChange);
 
         rb.AddTorque(inputs.mouseInputX * lookSpeed * rb.transform.up, ForceMode.VelocityChange); // giro para esquerda e direita com mouse
-
     }
     public void Jump() // tem pulo duplo
     {
@@ -107,6 +119,35 @@ public class PlayerMove : MonoBehaviour
             isOnStairs = false;
             rb.useGravity = true;
             Debug.Log("Player está fora da escada");
+        }
+    }
+
+    private void HandleStamina()
+    {
+        if (inputs.zMove != 0 && inputs.accelerateInput > 0 && sp > 0) // caso acelera load da aceleração entra em cooldown
+        {
+            sp -= Time.fixedDeltaTime;
+            staminaHasBeenUsedCounter = 3f;
+            GameManager.instance.hudManager.UpdateSPCount(sp, (int)spMax);
+        }
+
+        if (sp < spMax && staminaHasBeenUsedCounter <= 0)
+        {
+            if (staminaHasBeenUsedCounter < 2f && sp < spMax)
+            {
+                sp += Time.fixedDeltaTime; // fica aumentando a cada frame da unity em 0.0000... float dando 1 a cada seg
+                if (sp >= spMax)
+                {
+                    sp = spMax;
+                }
+            }
+            GameManager.instance.hudManager.UpdateSPCount(sp, (int)spMax);
+        }
+        else if (staminaHasBeenUsedCounter >= 0 && staminaHasBeenUsedCounter <= 2f) // não foi usada em 2 segundos
+        {
+            staminaHasBeenUsedCounter -= Time.fixedDeltaTime;
+            if (staminaHasBeenUsedCounter <= 0f)
+                staminaHasBeenUsedCounter = 0f;
         }
     }
 

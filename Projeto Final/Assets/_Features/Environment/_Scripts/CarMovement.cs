@@ -2,28 +2,39 @@ using UnityEngine;
 
 public class CarMovement : MonoBehaviour
 {
+    [Header("Motor Config")]
     [SerializeField] float reduceWheelRotation;
-    public float motorTorque; // força do motor
-    public float steerTorque; // força da direção
-    public float brakeTorque; // força do freio
-    public GameObject frontalLeftWheel; // Frente esquerda
-    public GameObject frontalRightWheel; // Frente direita
-    public GameObject backLeftWheel; // Trás esquerda
-    public GameObject backRightWheel; // Trás direita
-    public WheelCollider frontalLeftWheelCollider; // frente esquerda
-    public WheelCollider frontalRightWheelCollider; // frente direita
-    public WheelCollider backLeftWheelCollider; // tras esquerda
-    public WheelCollider backRightWheelCollider; // tras direita
+    [SerializeField] private float motorTorqueLimit = 1000f; // força do motor
+    [SerializeField] private float motorTorque; // força do motor
+    [SerializeField] private float steerTorque; // força da direção
+    [SerializeField] private float brakeTorque; // força do freio
 
-    private float currentMotorTorque;
-    [SerializeField] private float decelerationRate = 10f; // Taxa de desaceleração
-
+    [SerializeField] private float currentMotorTorque;
+    [SerializeField] private float decelerationRate = 2500f;
+    [SerializeField] private float accelerationRate = 1000f;
     [Header("References")]
     [SerializeField] private InputsService inputs;
+    [SerializeField] private GameObject frontalLeftWheel; // Frente esquerda
+    [SerializeField] private GameObject frontalRightWheel; // Frente direita
+    [SerializeField] private GameObject backLeftWheel; // Trás esquerda
+    [SerializeField] private GameObject backRightWheel; // Trás direita
+    [SerializeField] private WheelCollider frontalLeftWheelCollider; // frente esquerda
+    [SerializeField] private WheelCollider frontalRightWheelCollider; // frente direita
+    [SerializeField] private WheelCollider backLeftWheelCollider; // tras esquerda
+    [SerializeField] private WheelCollider backRightWheelCollider; // tras direita
+
+    [Header("Camera config")][SerializeField] float camLookSpeed;
+    [SerializeField] private float upDownRange = 80f;
+    [SerializeField] private Transform camHolderTransform;
+    float horizontalRotation = 0;
+    float verticalRotation = 0;
+
+
 
     void Start()
     {
-        currentMotorTorque = motorTorque;
+        currentMotorTorque = 0;
+        // camHolderTransform = Camera.main.transform.parent; Colocar camHolderManualmente
     }
 
     void Update()
@@ -33,48 +44,57 @@ public class CarMovement : MonoBehaviour
             return;
         }
 
+        verticalRotation -= inputs.mouseInputY * camLookSpeed * Time.deltaTime;
+        horizontalRotation += inputs.mouseInputX * camLookSpeed * Time.deltaTime;
 
-        float pushForceZ = -inputs.zMove * currentMotorTorque;
-        float pushForceX = inputs.xMove * steerTorque;
+        verticalRotation = Mathf.Clamp(verticalRotation, -upDownRange, upDownRange);
 
-        float currentMotorForce = pushForceZ * currentMotorTorque;
-        float currentSteerForce = pushForceX * steerTorque;
+        camHolderTransform.localRotation = Quaternion.Euler(verticalRotation, horizontalRotation, 0);
 
         backLeftWheelCollider.brakeTorque = 0;
         backRightWheelCollider.brakeTorque = 0;
         frontalLeftWheelCollider.brakeTorque = 0;
         frontalRightWheelCollider.brakeTorque = 0;
 
-        frontalLeftWheelCollider.steerAngle = currentSteerForce;
-        frontalRightWheelCollider.steerAngle = currentSteerForce;
-        backLeftWheelCollider.steerAngle = currentSteerForce;
-        backRightWheelCollider.steerAngle = currentSteerForce;
+        float currentSteerTorque = inputs.xMove * steerTorque;
+        frontalLeftWheelCollider.steerAngle = currentSteerTorque;
+        frontalRightWheelCollider.steerAngle = currentSteerTorque;
+        backLeftWheelCollider.steerAngle = currentSteerTorque;
+        backRightWheelCollider.steerAngle = currentSteerTorque;
 
-        if (inputs.accelerateInput > 0)
+
+        if (inputs.brakeInput > 0)
         {
-            currentMotorTorque = Mathf.Min(motorTorque, currentMotorTorque + decelerationRate * Time.deltaTime);
+
+
+            if (currentMotorTorque > 0)
+            {
+                currentMotorTorque = Mathf.Min(0, currentMotorTorque - currentMotorTorque * decelerationRate * Time.deltaTime);
+            }
+            else if (currentMotorTorque < 0)
+            {
+                currentMotorTorque = Mathf.Max(0, currentMotorTorque + currentMotorTorque * decelerationRate * Time.deltaTime);
+            }
+            backLeftWheelCollider.brakeTorque = brakeTorque;
+            backRightWheelCollider.brakeTorque = brakeTorque;
+            frontalLeftWheelCollider.brakeTorque = brakeTorque;
+            frontalRightWheelCollider.brakeTorque = brakeTorque;
         }
-        else if (inputs.brakeInput >0)
+        else if (inputs.accelerateInput > 0 && inputs.zMove != 0)
         {
-            currentMotorTorque = Mathf.Max(0, currentMotorTorque - decelerationRate * Time.deltaTime);
-
-            float _brakeForce = Mathf.Pow(motorTorque, 2) * brakeTorque;
-            backLeftWheelCollider.brakeTorque = _brakeForce;
-            backRightWheelCollider.brakeTorque = _brakeForce;
-            frontalLeftWheelCollider.brakeTorque = _brakeForce;
-            frontalRightWheelCollider.brakeTorque = _brakeForce;
+            currentMotorTorque = Mathf.Clamp(currentMotorTorque + -inputs.zMove * motorTorque * accelerationRate * Time.deltaTime, -motorTorqueLimit, motorTorqueLimit);
         }
-        else
+        else if (inputs.zMove != 0)
         {
-            currentMotorTorque = motorTorque;
+            currentMotorTorque = -inputs.zMove * motorTorque;
         }
 
-        frontalLeftWheelCollider.motorTorque = currentMotorForce;
-        frontalRightWheelCollider.motorTorque = currentMotorForce;
-        backLeftWheelCollider.motorTorque = currentMotorForce;
-        backRightWheelCollider.motorTorque = currentMotorForce;
-
+        frontalLeftWheelCollider.motorTorque = currentMotorTorque;
+        frontalRightWheelCollider.motorTorque = currentMotorTorque;
+        backLeftWheelCollider.motorTorque = currentMotorTorque;
+        backRightWheelCollider.motorTorque = currentMotorTorque;
         UpdateWheels();
+
     }
 
     void UpdateWheels()
