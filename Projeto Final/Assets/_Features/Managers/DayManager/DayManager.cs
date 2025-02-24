@@ -20,6 +20,8 @@ public class DayManager : ScriptableObject
     public int mins;
     public int hours;
     public int days = 0;
+    public float startHourNight = 18;
+    public float startHourDay = 6;
 
     public bool activateLights; // checks if lights are on
 
@@ -33,6 +35,8 @@ public class DayManager : ScriptableObject
         directionalLight = GameObject.FindGameObjectWithTag("Sun").GetComponent<Light>();
 
         //Debug.Log("Lights: "+ lights.Length);
+
+        hours = 17;
     }
 
     public void CalcTime() // Used to calculate sec, min and hours
@@ -63,7 +67,7 @@ public class DayManager : ScriptableObject
 
     public void ControlPPV() // used to adjust the post processing slider.
     {
-        if (hours >= 18 && hours < 19) // dusk at 18:00 / 6pm    -   until 19:00 / 7pm
+        if (hours >= startHourNight && hours < startHourNight + 1) // dusk at 18:00 / 6pm    -   until 19:00 / 7pm
         {
             // troquei de 60 para 120 para weight não ser 1 e ficar num breu...
             ppv.weight = (float)mins / 120; // since dusk is 1 hr, we just divide the mins by 60 which will slowly increase from 0 - 1 
@@ -81,7 +85,7 @@ public class DayManager : ScriptableObject
             }
         }
 
-        if (hours >= 5 && hours < 6) // Dawn at 5:00 / 5am    -   until 6:00 / 6am
+        if (hours >= startHourDay - 1 && hours < startHourDay) // Dawn at 5:00 / 5am    -   until 6:00 / 6am
         {
             ppv.weight = .5f - (float)mins / 120; // we minus 1 because we want it to go from 1 - 0
 
@@ -101,7 +105,7 @@ public class DayManager : ScriptableObject
 
     private void UpdateSun()
     {
-        if (hours >= 6 && hours < 18)
+        if (hours >= startHourDay && hours < startHourNight)
         {
             if (!directionalLight.gameObject.activeSelf)
             {
@@ -118,6 +122,14 @@ public class DayManager : ScriptableObject
             {
                 directionalLight.gameObject.SetActive(false);
             }
+        }
+        if (hours >= startHourNight && !GameManager.instance.waveSpawned)
+        {
+            GameManager.instance.NewWave();
+        }
+        else if (hours >= startHourDay && hours < startHourNight && GameManager.instance.waveSpawned) // apagando wave de dia
+        {
+            GameManager.instance.wave.GetComponent<Wave>().DestroyWave();
         }
     }
 

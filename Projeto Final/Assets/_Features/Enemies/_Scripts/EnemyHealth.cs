@@ -2,23 +2,25 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    [SerializeField] private float startingEnemyHealth = 1;
     private bool isDead; // blend tree buga animation event porque o float não é exatamente 1 ou 0 (logo as duas animações de mortes são executadas por debaixo dos panos - morrendo duas vezes),
 
-    private float currentHealth;
+    public float currentHealth;
 
-    EnemyController em;
+
+    EnemyController ec;
+    public float startingHealth = 1;
 
     //private static int collisionCount = 0; // Contador de colisões
     private void Start()
     {
-        em = GetComponent<EnemyController>();
-        currentHealth = startingEnemyHealth;
+        ec = GetComponent<EnemyController>();
+        currentHealth = startingHealth;
     }
 
     public void TakeDamage(float damage)
     {
-        currentHealth = Mathf.Clamp(currentHealth - damage, 0, startingEnemyHealth);
+        if (ec.isDying == true) return;
+        currentHealth = Mathf.Clamp(currentHealth - damage, 0, startingHealth);
         Debug.Log($"Dano no inimigo ({name}) recebido: {damage}, \nvida atual: {currentHealth}");
 
         if (currentHealth <= 0)
@@ -30,8 +32,8 @@ public class EnemyHealth : MonoBehaviour
     private void SetDying()
     {
         Debug.Log("Inimigo esta morrendo");
-        em.isDying = true;
-        em.animator.SetBool("IsDying", em.isDying);
+        ec.isDying = true;
+        ec.UpdateAnimatorParameters();
         GetComponent<BoxCollider>().enabled = false;
     }
 
@@ -40,6 +42,6 @@ public class EnemyHealth : MonoBehaviour
         if (isDead || this == null) return;
         Debug.Log("Inimigo " + name + " morreu");
         isDead = true;
-        Destroy(this.gameObject);
+        Destroy(gameObject);
     }
 }

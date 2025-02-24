@@ -12,7 +12,7 @@ public class ResourceManager : MonoBehaviour
 
     public int wood, oil, water, totalWood, totalOil, totalWater, load;
     public int maxLoad = 10;
-    public bool AutoDriveActivated;
+    public bool canDrive;
 
     void LateUpdate()
     {
@@ -86,7 +86,11 @@ public class ResourceManager : MonoBehaviour
             load = 0;
         }
 
-        AutoDriveActivated = load >= maxLoad;
+        canDrive = load >= maxLoad;
+        if (canDrive && GameManager.instance.bubble == null)
+        {
+            GameManager.instance.CreateBubble();
+        }
     }
 
     private void RemoveItem(Collectible type, Dictionary<int, Gatherable> calderon, Dictionary<int, Gatherable> pavillion)

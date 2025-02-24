@@ -26,10 +26,10 @@ public class ShipWheel : MonoBehaviour
     {
         Debug.Log("ToggleDriveMode");
         // caldeiron.load não está sendo usado
-        if (GameManager.instance.isDriving == false)// && GameManager.instance.rm.load > 0) colocar regra do maxLoad aki
+        if (!GameManager.instance.isDriving)// && GameManager.instance.rm.load > 0) colocar regra do maxLoad aki
         {
             player.GetComponent<Rigidbody>().isKinematic = true;
-            player.transform.SetParent(gameObject.transform, true); //testar segundo parammetro com false e com true
+            player.transform.SetParent(wagon.transform, true); //testar segundo parammetro com false e com true
             carCamera.gameObject.SetActive(true);
             playerCamera.gameObject.SetActive(false);
             GameManager.instance.isDriving = true;

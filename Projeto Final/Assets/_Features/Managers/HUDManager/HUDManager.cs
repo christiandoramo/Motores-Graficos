@@ -30,7 +30,7 @@ public class HUDManager : MonoBehaviour
         spBar.value = spBar.maxValue;
         spCounter.text = $"{spBar.value}/{spBar.maxValue}";
 
-        loadBar.maxValue = GameManager.instance.rm.maxLoad; // é charge, e não load... =)
+        loadBar.maxValue = 0; // é charge, e não load... =)
         loadBar.value = 0;
         loadCounter.text = $"{loadBar.value}/{0}";
     }

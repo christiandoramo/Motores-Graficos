@@ -487,6 +487,7 @@ GameObject:
   - component: {fileID: 6098579488050337362}
   - component: {fileID: 1865869976567292808}
   - component: {fileID: 6824016257468141795}
+  - component: {fileID: 8534853913428948003}
   m_Layer: 12
   m_Name: Ghost
   m_TagString: Enemy
@@ -503,7 +504,7 @@ Transform:
   m_GameObject: {fileID: 2595599822610429954}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 25.12, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -571,7 +572,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0439c7e364b44745936ccc68106af99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingEnemyHealth: 1
+  currentHealth: 0
+  startingHealth: 0
 --- !u!114 &6824016257468141795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -592,6 +594,8 @@ MonoBehaviour:
   playerColliderMask:
     serializedVersion: 2
     m_Bits: 128
+  isMoving: 1
+  isAttacking: 0
   hitBoxSize: {x: 3, y: 3, z: 3}
   coolDownTimer: 0
   torchCooldown: 3
@@ -600,6 +604,22 @@ MonoBehaviour:
     m_Bits: 128
   attackOriginPoint: {fileID: 3632562313385028088}
   attackPrefab: {fileID: 5106061031154382049, guid: 307a9e74f35f7ef4db439e437fd5c710, type: 3}
+--- !u!114 &8534853913428948003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2595599822610429954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50191a7c5d535d146a2bb93aa593141d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  isDying: 0
+  isAttacking: 0
+  isMoving: 0
 --- !u!1 &2967262150296999151
 GameObject:
   m_ObjectHideFlags: 0

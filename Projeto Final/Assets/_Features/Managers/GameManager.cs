@@ -22,7 +22,12 @@ public class GameManager : MonoBehaviour
     public HUDManager hudManagerOriginal;
 
     public Camera activeCamera;
-
+    [NonSerialized] public GameObject bubble = null;
+    [SerializeField] GameObject bubblePrefab;
+    [NonSerialized] public GameObject wave = null;
+    [SerializeField] GameObject wavePrefab;
+    public bool waveSpawned;
+    GameObject wagon;
 
     // [SerializeField] private InputActionReference pauseResumePressed;
 
@@ -34,6 +39,8 @@ public class GameManager : MonoBehaviour
         hudManager = Instantiate(hudManagerOriginal);
         dayManager.Initialize();
         activeCamera = Camera.main;
+        wagon = GameObject.FindWithTag("Wagon");
+
     }
     void FixedUpdate()
     {
@@ -41,4 +48,15 @@ public class GameManager : MonoBehaviour
         dayManager.DisplayTime();
     }
 
+    public void CreateBubble()
+    {
+        bubble = Instantiate(bubblePrefab, wagon.transform.position, Quaternion.identity);
+        bubble.transform.SetParent(wagon.transform, true);
+    }
+
+    public void NewWave()
+    {
+        waveSpawned = true;
+        wave = Instantiate(wavePrefab,  wagon.transform.position, Quaternion.identity);
+    }
 }

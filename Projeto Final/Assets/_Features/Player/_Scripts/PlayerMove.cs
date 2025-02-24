@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Scripting.APIUpdating;
@@ -127,8 +128,8 @@ public class PlayerMove : MonoBehaviour
         if (inputs.zMove != 0 && inputs.accelerateInput > 0 && sp > 0) // caso acelera load da aceleração entra em cooldown
         {
             sp -= Time.fixedDeltaTime;
-            staminaHasBeenUsedCounter = 3f;
-            GameManager.instance.hudManager.UpdateSPCount(sp, (int)spMax);
+            staminaHasBeenUsedCounter = 2f;
+            GameManager.instance.hudManager.UpdateSPCount((float)Math.Floor(sp), (int)spMax);
         }
 
         if (sp < spMax && staminaHasBeenUsedCounter <= 0)
@@ -141,7 +142,7 @@ public class PlayerMove : MonoBehaviour
                     sp = spMax;
                 }
             }
-            GameManager.instance.hudManager.UpdateSPCount(sp, (int)spMax);
+            GameManager.instance.hudManager.UpdateSPCount((float)Math.Floor(sp), (int)spMax);
         }
         else if (staminaHasBeenUsedCounter >= 0 && staminaHasBeenUsedCounter <= 2f) // não foi usada em 2 segundos
         {
